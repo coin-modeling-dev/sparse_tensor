@@ -1,0 +1,6 @@
+1. `inventory.json` contains a basic inventory model.  The model can be solved as-is because each entity has default values.
+2. `poisson.json` contains a basic Poisson model.
+3. `stochasticinventory.json` 
+  * specifies data sources and sql statements to get entity values
+  * contains an inventory model, with defined input and output entities.  The input entity values override those in the inventory.json file.
+  * contains a Poisson model, with defined input and output entities.
