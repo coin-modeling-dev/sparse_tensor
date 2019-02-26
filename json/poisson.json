@@ -1,3 +1,6 @@
+# Poisson random variable
+# Returns P[I] = Poisson( L[I] )
+
 {
   "Poisson": {
     "type": "container",
