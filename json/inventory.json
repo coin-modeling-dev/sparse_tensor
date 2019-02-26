@@ -3,13 +3,16 @@
     "type": "model",
     "style": "stochastic multi-period",
     "containers": ["INVENTORY"],
-    "random": ["D"],
+    "random": ["Demand"],
+    "realvariable": ["Balance"],
+    "integervariable":["X"]
     "input": {
 
     },
     "output": {
 
-    }
+    },
+    "solver": "SMI"
   },
   "INVENTORY": {
     "type": "container",
@@ -32,15 +35,15 @@
         "ordered": true,
         "starts": 0
       },
-      "X": {
-        "type": "data",
+      "StockOrder": {
+        "type": "tensor",
         "index": [
           "P",
           "T"
         ]
       },
       "Balance": {
-        "type": "data",
+        "type": "tensor",
         "index": [
           "P",
           "T"
@@ -51,13 +54,13 @@
         }
       },
       "Balance0": {
-        "type": "data",
+        "type": "tensor",
         "index": [
           "P"
         ]
       },
       "Demand": {
-        "type": "data",
+        "type": "tensor",
         "index": [
           "T",
           "P"
