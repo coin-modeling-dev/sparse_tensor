@@ -1,0 +1,27 @@
+{
+  "Poisson": {
+    "type": "container",
+    "symbols": [
+      "I",
+      "L",
+      "P"
+    ],
+    "returns": "P",
+    "definition": {
+      "I": {
+        "type": "set",
+        "size": 1
+      },
+      "L": {
+        "type": "tensor",
+        "index": "I",
+        "value": 1.0
+      },
+      "P": {
+        "type": "tensor",
+        "index": "I",
+        "definition": "P = Poisson(L)"
+      }
+    }
+  }
+}
