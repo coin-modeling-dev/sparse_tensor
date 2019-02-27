@@ -1,11 +1,11 @@
 {
-  "comment": "Scenario Tree",
+  "comment": "Scenario Tree as a list of T discrete RV's",
   "ScenarioTree": {
     "type": "container",
     "symbols": [
       "T",
       "D",
-      "RV"
+      "S"
     ],
     "example": {
       "T": 3,
@@ -13,8 +13,9 @@
         "comment": "Using list comprehension",
         "python": "[Discrete.example() for t in T]"
       },
-      "RV": {
-        "python": "[Discrete.example().RV for t in T]"
+      "S": {
+        "comment": "Using list comprehension",
+        "python": "[Discrete.example().S for t in T]"
       }
     },
     "definition": {
@@ -27,7 +28,7 @@
         "index": "T",
         "source": "discrete.json"
       },
-      "RV": {
+      "S": {
         "type": "tensor",
         "index": [
           "T",

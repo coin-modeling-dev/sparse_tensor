@@ -8,11 +8,11 @@
       "P",
       "V",
       "M",
-      "RV"
+      "S"
     ],
-    "returns": "RV",
+    "returns": "S",
     "example": {
-      "comment": "RV contains M samples of V with probability P",
+      "comment": "S contains M samples of V with probability P",
       "I": 1,
       "N": 2,
       "P": [
@@ -24,7 +24,7 @@
         1.0
       ],
       "M": 10,
-      "RV": {
+      "S": {
         "python": "np.random.choice(V, M, p=P)"
       }
     },
@@ -43,7 +43,7 @@
           "N"
         ]
       },
-      "RV": {
+      "S": {
         "type": "tensor",
         "index": [
           "I",
