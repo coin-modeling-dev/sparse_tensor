@@ -1,0 +1,39 @@
+{
+  "comment": "Scenario Tree",
+  "ScenarioTree": {
+    "type": "container",
+    "symbols": [
+      "T",
+      "D",
+      "RV"
+    ],
+    "example": {
+      "T": 3,
+      "D": {
+        "comment": "Using list comprehension",
+        "python": "[Discrete.example() for t in T]"
+      },
+      "RV": {
+        "python": "[Discrete.example().RV for t in T]"
+      }
+    },
+    "definition": {
+      "T": {
+        "type": "set",
+        "ordered": true
+      },
+      "D": {
+        "type": "container",
+        "index": "T",
+        "source": "discrete.json"
+      },
+      "RV": {
+        "type": "tensor",
+        "index": [
+          "T",
+          "D.I"
+        ]
+      }
+    }
+  }
+}
