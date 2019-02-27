@@ -11,11 +11,11 @@
       "T": 3,
       "D": {
         "comment": "Using list comprehension",
-        "python": "[Discrete.example() for t in T]"
+        "python": "[Discrete.example() for _ in T]"
       },
       "S": {
         "comment": "Using list comprehension",
-        "python": "[Discrete.example().S for t in T]"
+        "python": "[Discrete.example().S for _ in T]"
       }
     },
     "definition": {

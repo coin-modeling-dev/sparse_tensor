@@ -7,56 +7,106 @@
       "X",
       "B",
       "B0",
-      "D"
+      "D",
+      "CX",
+      "TC"
     ],
+    "example": {
+      "P": 4,
+      "T": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "B0": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "D": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          3,
+          3,
+          3,
+          3
+        ]
+      ],
+      "CX": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
     "definition": {
       "P": {
         "type": "set",
-        "ordered": false,
-        "size": 4
+        "ordered": false
       },
       "T": {
         "type": "set",
-        "ordered": true,
-        "starts": 0,
-        "ends": 3
+        "ordered": true
       },
       "X": {
-        "type": "tensor",
-        "style": "variable",
+        "type": "variable",
         "index": [
           "P",
-          "T"
-        ]
+          "T<T.end"
+        ],
+        "lowerBound": 0.0
       },
       "B": {
-        "type": "tensor",
-        "style": "constraint",
+        "type": "variable",
         "index": [
           "P",
           "T"
         ],
         "definition": {
-          "T>0": "B[T,P] = B[T-1,P] + X[T,P] - D[T,P]",
-          "T==0": "B[0,P] = B0[P]"
-        }
+          "T>0": "B[T-1,P] + X[T-1,P] - D[T,P]",
+          "T==0": "B0[P]"
+        },
+        "lowerBound": 0.0
       },
       "B0": {
-        "type": "tensor",
-        "style": "fixed",
-        "value": 0.0,
+        "type": "parameter",
         "index": [
           "P"
         ]
       },
       "D": {
-        "type": "tensor",
-        "style": "fixed",
-        "value": "numpy.ndarray.random(T,P)",
+        "type": "parameter",
         "index": [
-          "T",
+          "T>0",
           "P"
         ]
+      },
+      "CX": {
+        "type": "parameter",
+        "index": [
+          "T<T.end",
+          "P"
+        ]
+      },
+      "TC": {
+        "type": "variable",
+        "index": [
+          "T<T.end"
+        ],
+        "definition": "sum(CX*X)"
       }
     }
   }

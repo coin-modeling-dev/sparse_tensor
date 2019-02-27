@@ -2,72 +2,75 @@
   "StochasticInventory": {
     "type": "model",
     "style": "stochastic multi-period linear",
-    "sets": [
-      "Time",
-      "Product"
-    ],
-    "parameters": [
-      "InitialBalance",
-      "Rates",
-      "Costs"
-    ],
-    "random": [
-      "Demand"
-    ],
-    "variables": [
-      "StockOrder"
-    ],
-    "constraints": [
-      "Balance"
-    ],
     "data": {
-      "sql": {
-        "source1": {
-          "database": "db2",
-          "selects": [
-            "Products",
-            "InitialBalance"
+      "source1": {
+        "database": "db2",
+        "defines": [
+          "Products",
+          "InitialBalance"
+        ],
+        "sql": "Select Products, InitialBalance from table where ... "
+      },
+      "source2": {
+        "database": "db2",
+        "defines": [
+          "Time",
+          "Product",
+          "Cost",
+          "Revenue",
+          "Forecast",
+          "UpperRange",
+          "LowerRange"
+        ],
+        "sql": "Select Cost,Time,Product ... from table where ..."
+      },
+      "source3": {
+        "module": "discrete.json",
+        "defines": "Demand[Time]",
+        "inputs": {
+          "I": "Products[Time]",
+          "N": 3,
+          "P": [
+            0.2,
+            0.6,
+            0.2
           ],
-          "sql": "Select Products, InitialBalance from table where ... "
-        },
-        "source2": {
-          "database": "db2",
-          "selects": [
-            "Time",
-            "Products",
-            "Rates"
-          ],
-          "sql": "Select Rates,Time,Products from table where ..."
-        },
-        "source3": {
-          "database": "db2"
+          "V": [
+            "LowerRange[Time]",
+            "Forecasts[Time]",
+            "UpperRange[Time]"
+          ]
         }
       }
     },
-    "containers": {
-      "poisson.json": {
-        "inputs": {
-          "I": [
-            "Time",
-            "Products"
-          ],
-          "L": "Rates"
+    "formulation": {
+      "optimization": "min",
+      "objective": [
+        {
+          "module": "expected.json",
+          "inputs": "TotalCost"
         },
-        "outputs": {
-          "Demand": [
-            "P"
-          ]
+        {
+          "module": "CVaR.json",
+          "inputs": "TotalCost"
         }
-      },
-      "inventory.json": {
+      ],
+      "TotalCost": {
+        "module": "scenario_tree.json",
         "inputs": {
-          "B0": "InitialBalance",
-          "D": "Demand"
+          "T": "Time",
+          "D": {
+            "module": "inventory.json",
+            "inputs": {
+              "T": "Time",
+              "P": "Products",
+              "B0": "InitialBalance",
+              "D": "Demand",
+              "CX": "Costs"
+            }
+          }
         },
-        "outputs": {
-          "StockOrder": "X",
-          "Balance": "B"
-        }
+        "outputs": "TC"
       }
     },
     "solver": "SMI"
