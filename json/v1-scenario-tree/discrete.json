@@ -1,0 +1,55 @@
+{
+  "comment": "Discrete distribution",
+  "Discrete": {
+    "type": "container",
+    "symbols": [
+      "I",
+      "N",
+      "P",
+      "V",
+      "M",
+      "RV"
+    ],
+    "returns": "RV",
+    "example": {
+      "comment": "RV contains M samples of V with probability P",
+      "I": 1,
+      "N": 2,
+      "P": [
+        0.5,
+        0.5
+      ],
+      "V": [
+        -1.0,
+        1.0
+      ],
+      "M": 10,
+      "RV": {
+        "python": "np.random.choice(V, M, p=P)"
+      }
+    },
+    "definition": {
+      "I": {
+        "type": "set"
+      },
+      "P": {
+        "type": "tensor",
+        "index": "N"
+      },
+      "V": {
+        "type": "tensor",
+        "index": [
+          "I",
+          "N"
+        ]
+      },
+      "RV": {
+        "type": "tensor",
+        "index": [
+          "I",
+          "M"
+        ]
+      }
+    }
+  }
+}

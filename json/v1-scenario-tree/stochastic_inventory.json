@@ -1,0 +1,77 @@
+{
+  "StochasticInventory": {
+    "type": "model",
+    "style": "stochastic multi-period linear",
+    "sets": [
+      "Time",
+      "Product"
+    ],
+    "parameters": [
+      "InitialBalance",
+      "Rates",
+      "Costs"
+    ],
+    "random": [
+      "Demand"
+    ],
+    "variables": [
+      "StockOrder"
+    ],
+    "constraints": [
+      "Balance"
+    ],
+    "data": {
+      "sql": {
+        "source1": {
+          "database": "db2",
+          "selects": [
+            "Products",
+            "InitialBalance"
+          ],
+          "sql": "Select Products, InitialBalance from table where ... "
+        },
+        "source2": {
+          "database": "db2",
+          "selects": [
+            "Time",
+            "Products",
+            "Rates"
+          ],
+          "sql": "Select Rates,Time,Products from table where ..."
+        },
+        "source3": {
+          "database": "db2"
+        }
+      }
+    },
+    "containers": {
+      "poisson.json": {
+        "inputs": {
+          "I": [
+            "Time",
+            "Products"
+          ],
+          "L": "Rates"
+        },
+        "outputs": {
+          "Demand": [
+            "P"
+          ]
+        }
+      },
+      "inventory.json": {
+        "inputs": {
+          "B0": "InitialBalance",
+          "D": "Demand"
+        },
+        "outputs": {
+          "StockOrder": "X",
+          "Balance": "B"
+        }
+      }
+    },
+    "solver": "SMI"
+  }
+}
+
+
