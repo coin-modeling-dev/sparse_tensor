@@ -4,3 +4,5 @@ project(untitled)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(untitled main.cpp)
+# RapidJSON
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../rapidjson/include)
